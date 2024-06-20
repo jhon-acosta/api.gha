@@ -1,0 +1,36 @@
+{
+  "name": "api.gha",
+  "version": "1.0.0",
+  "description": "Servidor con github actions para ci/cd",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon ./src/index.ts",
+    "build": "npx rollup -c",
+    "start": "node ./dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhon-acosta/api.gha.git"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "Jhon Acosta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jhon-acosta/api.gha/issues"
+  },
+  "homepage": "https://github.com/jhon-acosta/api.gha#readme",
+  "dependencies": {
+    "fastify": "^4.28.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.6",
+    "nodemon": "^3.1.4",
+    "rollup": "^4.18.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "tsx": "^4.15.6",
+    "typescript": "^5.4.5"
+  }
+}
