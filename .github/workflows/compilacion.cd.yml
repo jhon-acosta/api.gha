@@ -2,16 +2,13 @@ name: Compilación manual
 
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 
 env:
-  # Token de GitHub Package Registry
   TOKEN_PKG: ${{ secrets.TOKEN_PKG_API_GHA }}
-  # URL de GitHub Container Registry
   GHCR_IO: ghcr.io/${{ github.repository }}:latest
-  # Nombre de usuario del propietario del repositorio
   ACTOR: ${{ github.repository_owner }}
 
 jobs:
@@ -20,11 +17,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@main
+        uses: actions/checkout@v2
 
-      - name: Iniciando sesión en GitHub Container Registry
+      - name: Configure Docker credentials
         run: |
-          echo $TOKEN_PKG | docker login ghcr.io -u $ACTOR --password-stdin
+          mkdir -p ~/.docker
+          ./docker-credentials.sh > ~/.docker/config.json
+          chmod 600 ~/.docker/config.json
+
+      - name: Iniciar sesión en GitHub Container Registry con Docker
+        run: |
+          docker login ghcr.io
 
       - name: Construyendo imagen
         run: |
