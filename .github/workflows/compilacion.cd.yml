@@ -1,0 +1,32 @@
+name: Compilación manual
+
+on:
+  workflow_dispatch:
+
+env:
+  # Token de GitHub Package Registry
+  TOKEN_PKG: ${{ secrets.TOKEN_PKG }}
+  # URL de GitHub Container Registry
+  GHCR_IO: ghcr.io/${{ github.repository }}:latest
+  # Nombre de usuario del propietario del repositorio
+  ACTOR: ${{ github.repository_owner }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@main
+
+      - name: Iniciando sesión en GitHub Container Registry
+        run: |
+          echo ${{ secrets.TOKEN_PKG }} | docker login ghcr.io -u $ACTOR --password-stdin
+
+      - name: Construyendo imagen
+        run: |
+          docker build -t $CONTAINER_NAME .
+
+      - name: Publicando imagen
+        run: |
+          docker push $CONTAINER_NAME
