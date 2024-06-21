@@ -5,7 +5,7 @@ on:
 
 env:
   # Token de GitHub Package Registry
-  TOKEN_PKG: ${{ secrets.TOKEN_PKG }}
+  TOKEN_PKG: ${{ secrets.TOKEN_PKG_API_GHA }}
   # URL de GitHub Container Registry
   GHCR_IO: ghcr.io/${{ github.repository }}:latest
   # Nombre de usuario del propietario del repositorio
@@ -25,8 +25,8 @@ jobs:
 
       - name: Construyendo imagen
         run: |
-          docker build -t $CONTAINER_NAME .
+          docker build -t $GHCR_IO .
 
       - name: Publicando imagen
         run: |
-          docker push $CONTAINER_NAME
+          docker push $GHCR_IO
