@@ -20,34 +20,11 @@ jobs:
 
       - name: Configurar credenciales de Docker
         run: |
-          # Define el nombre de usuario y token de GitHub Container Registry
-          GHCR_USERNAME=$ACTOR
-          GHCR_TOKEN=$TOKEN_PKG
-
-          # Crea un directorio para el archivo de configuración de Docker
-          mkdir -p ~/.docker
-
-          # Crea un archivo de configuración para Docker
-          cat <<EOF > ~/.docker/config.json
-          {
-            "credHelpers": {
-              "ghcr.io": "ghcr"
-            }
-          }
-          EOF
-
-          # Crea un helper de credenciales personalizado para GHCR
-          cat <<EOF > ~/.docker/config.sh
-          #!/bin/bash
-          echo "{\"Username\":\"$GHCR_USERNAME\",\"Secret\":\"$GHCR_TOKEN\"}"
-          EOF
-
-          # Cambia los permisos para que el helper de credenciales sea ejecutable
-          chmod +x ~/.docker/config.sh
+          echo "{\"auths\":{\"ghcr.io\":{\"username\":\"$ACTOR\",\"password\":\"$TOKEN_PKG\"}}}" > ~/.docker/config.json
 
       - name: Iniciar sesión en GitHub Container Registry con Docker
         run: |
-          docker login ghcr.io -u $ACTOR --password-stdin <<< "$(cat ~/.docker/config.sh)"
+          docker login ghcr.io -u $ACTOR --password-stdin < ~/.docker/config.json
 
       - name: Construyendo imagen
         run: |
