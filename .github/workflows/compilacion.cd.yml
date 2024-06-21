@@ -1,7 +1,10 @@
 name: Compilación manual
 
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
+  push:
+    branches:
+      - main
 
 env:
   # Token de GitHub Package Registry
@@ -21,7 +24,7 @@ jobs:
 
       - name: Iniciando sesión en GitHub Container Registry
         run: |
-          echo ${{ secrets.TOKEN_PKG }} | docker login ghcr.io -u $ACTOR --password-stdin
+          echo $TOKEN_PKG | docker login ghcr.io -u $ACTOR --password-stdin
 
       - name: Construyendo imagen
         run: |
