@@ -1,10 +1,10 @@
 name: Compilación manual
 
 on:
-  # workflow_dispatch:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
 
 env:
   # Token de GitHub Package Registry
