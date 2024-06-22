@@ -47,4 +47,4 @@ jobs:
           push: true
           tags: ${{ github.repository }}:latest
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
+          # cache-from: type=gha
