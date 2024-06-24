@@ -3,7 +3,7 @@ name: Compilación y publicación de imagen
 on:
   # push:
   #   branches: ["main"]
-  workflow_dispatch:
+  workflow_dispatch: # Para ejecutar manualmente
 
 env:
   REGISTRY: ghcr.io
