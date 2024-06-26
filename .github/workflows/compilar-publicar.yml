@@ -1,8 +1,8 @@
 name: Compilación y publicación de imagen
 
 on:
-  # push:
-  #   branches: ["main"]
+  push:
+    branches: ["main"]
   workflow_dispatch: # Para ejecutar manualmente
 
 env:
@@ -48,6 +48,6 @@ jobs:
       - name: Generando evidencia de construcción
         uses: actions/attest-build-provenance@main
         with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}:latest
           # subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
